@@ -1,0 +1,17 @@
+# Secrets
+backend/config/config.php
+.env
+
+# Logs (folder is kept, contents are not)
+backend/logs/*
+!backend/logs/.gitkeep
+
+# Dependencies
+backend/vendor/
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

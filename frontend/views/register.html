@@ -1,0 +1,40 @@
+<section class="ac-auth">
+  <div class="ac-auth-art">
+    <a href="#/login" class="ac-brand">Auto<span>Care</span></a>
+    <div>
+      <h2>Your whole garage in one place.</h2>
+      <p>Add a vehicle, log its history and get reminded when the next service is due.</p>
+    </div>
+  </div>
+  <div class="ac-auth-form">
+    <div class="inner">
+      <h1 class="h2 mb-1">Create account</h1>
+      <p class="text-secondary mb-4">It takes under a minute.</p>
+      <form class="js-demo-form" data-goto="#/dashboard" novalidate>
+        <div class="mb-3">
+          <label for="regName" class="form-label">Full name</label>
+          <input type="text" class="form-control" id="regName" minlength="2" required>
+          <div class="invalid-feedback">Enter your name.</div>
+        </div>
+        <div class="mb-3">
+          <label for="regEmail" class="form-label">Email</label>
+          <input type="email" class="form-control" id="regEmail" required>
+          <div class="invalid-feedback">Enter a valid email address.</div>
+        </div>
+        <div class="mb-3">
+          <label for="regPassword" class="form-label">Password</label>
+          <input type="password" class="form-control" id="regPassword" minlength="8" required>
+          <div class="form-text">At least 8 characters.</div>
+          <div class="invalid-feedback">Password must be at least 8 characters.</div>
+        </div>
+        <div class="mb-4">
+          <label for="regConfirm" class="form-label">Confirm password</label>
+          <input type="password" class="form-control" id="regConfirm" minlength="8" required>
+          <div class="invalid-feedback">Confirm your password.</div>
+        </div>
+        <button class="btn btn-primary w-100 py-2" type="submit">Create account</button>
+      </form>
+      <p class="mt-4 mb-0">Already have an account? <a href="#/login">Log in</a></p>
+    </div>
+  </div>
+</section>

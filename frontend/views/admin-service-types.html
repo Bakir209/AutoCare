@@ -1,0 +1,37 @@
+<div class="ac-page-head">
+  <div><h1>Service types</h1><p>The catalogue users pick from when logging services. Admins only.</p></div>
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#typeModal"><i class="bi bi-plus-lg me-1"></i>Add service type</button>
+</div>
+
+<div class="ac-card">
+  <div class="table-responsive">
+    <table class="table table-hover ac-table">
+      <thead><tr><th>Name</th><th>Description</th><th>Interval (km)</th><th>Interval (months)</th><th class="text-end">Actions</th></tr></thead>
+      <tbody>
+        <tr><td>Oil change</td><td>Engine oil and filter</td><td>15,000</td><td>12</td>
+          <td class="text-end text-nowrap"><button class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#typeModal" aria-label="Edit"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger" aria-label="Delete"><i class="bi bi-trash"></i></button></td></tr>
+        <tr><td>Brake pads</td><td>Front and rear pad inspection or replacement</td><td>40,000</td><td>24</td>
+          <td class="text-end text-nowrap"><button class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#typeModal" aria-label="Edit"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger" aria-label="Delete"><i class="bi bi-trash"></i></button></td></tr>
+        <tr><td>Tyre rotation</td><td>Rotate and balance all four tyres</td><td>10,000</td><td>6</td>
+          <td class="text-end text-nowrap"><button class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#typeModal" aria-label="Edit"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger" aria-label="Delete"><i class="bi bi-trash"></i></button></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="typeModal" tabindex="-1" aria-labelledby="typeModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content js-demo-form" novalidate>
+      <div class="modal-header"><h2 class="modal-title h4" id="typeModalTitle">Service type</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-body">
+        <div class="mb-3"><label for="tName" class="form-label">Name</label><input type="text" class="form-control" id="tName" required></div>
+        <div class="mb-3"><label for="tDesc" class="form-label">Description</label><textarea class="form-control" id="tDesc" rows="2"></textarea></div>
+        <div class="row g-3">
+          <div class="col-6"><label for="tKm" class="form-label">Interval (km)</label><input type="number" class="form-control" id="tKm" min="0"></div>
+          <div class="col-6"><label for="tMonths" class="form-label">Interval (months)</label><input type="number" class="form-control" id="tMonths" min="0"></div>
+        </div>
+      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button><button type="submit" class="btn btn-primary">Save service type</button></div>
+    </form>
+  </div>
+</div>

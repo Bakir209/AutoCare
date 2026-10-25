@@ -1,0 +1,109 @@
+<div class="ac-page-head">
+  <div>
+    <a href="#/vehicles" class="text-secondary text-decoration-none"><i class="bi bi-arrow-left me-1"></i>My vehicles</a>
+    <h1 class="mt-2">BMW M340i</h1>
+    <p>2021, petrol, <span class="ac-plate">A12-K-345</span>, 48,320 km</p>
+  </div>
+  <div class="d-flex gap-2">
+    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#detailServiceModal"><i class="bi bi-wrench-adjustable me-1"></i>Log service</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailFuelModal"><i class="bi bi-fuel-pump me-1"></i>Log fuel</button>
+  </div>
+</div>
+
+<ul class="nav nav-tabs mb-0" role="tablist">
+  <li class="nav-item" role="presentation"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabServices" type="button" role="tab">Services</button></li>
+  <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabFuel" type="button" role="tab">Fuel</button></li>
+  <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabReminders" type="button" role="tab">Reminders</button></li>
+  <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabRecalls" type="button" role="tab">Recalls</button></li>
+</ul>
+
+<div class="tab-content ac-card border-top-0">
+  <div class="tab-pane fade show active" id="tabServices" role="tabpanel">
+    <div class="table-responsive">
+      <table class="table table-hover ac-table">
+        <thead><tr><th>Date</th><th>Service</th><th>Mileage</th><th>Workshop</th><th class="text-end">Cost</th></tr></thead>
+        <tbody>
+          <tr><td>03.04.2026</td><td>Oil change</td><td>40,100 km</td><td>Auto Servis Mostar</td><td class="text-end">145.00 KM</td></tr>
+          <tr><td>15.01.2026</td><td>Brake fluid <span class="ac-status pending ms-1">Repair</span></td><td>36,800 km</td><td>Auto Servis Mostar</td><td class="text-end">60.00 KM</td></tr>
+          <tr><td>02.10.2025</td><td>Tyre rotation</td><td>31,500 km</td><td>Gume Plus</td><td class="text-end">30.00 KM</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="tabFuel" role="tabpanel">
+    <div class="table-responsive">
+      <table class="table table-hover ac-table">
+        <thead><tr><th>Date</th><th>Litres</th><th>Price per litre</th><th>Mileage</th><th class="text-end">Total</th></tr></thead>
+        <tbody>
+          <tr><td>22.10.2026</td><td>42.1 L</td><td>1.90 KM</td><td>48,320 km</td><td class="text-end">79.90 KM</td></tr>
+          <tr><td>09.10.2026</td><td>38.7 L</td><td>1.89 KM</td><td>47,610 km</td><td class="text-end">73.14 KM</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="tabReminders" role="tabpanel">
+    <div class="table-responsive">
+      <table class="table table-hover ac-table">
+        <thead><tr><th>Service</th><th>Due date</th><th>Due mileage</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Oil change</td><td>30.11.2026</td><td>50,000 km</td><td><span class="ac-status pending">Pending</span></td></tr>
+          <tr><td>Tyre rotation</td><td>01.04.2027</td><td>55,000 km</td><td><span class="ac-status pending">Pending</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- External API slot 2: NHTSA recalls for this vehicle -->
+  <div class="tab-pane fade p-3 p-md-4" id="tabRecalls" role="tabpanel" data-api="nhtsa-recalls">
+    <div class="ac-recall">
+      <h3>Fuel pump may fail at low pressure</h3>
+      <p class="mb-1"><strong>Component:</strong> Fuel system, high pressure</p>
+      <p>The pump can stop supplying fuel, which may cause the engine to stall while driving. Contact a dealer for a free inspection and repair.</p>
+      <p class="ac-api-note mb-0">Campaign 21V-000, reported 14.05.2021</p>
+    </div>
+    <div class="ac-recall">
+      <h3>Rear seat belt buckle may not latch</h3>
+      <p class="mb-1"><strong>Component:</strong> Seat belts, rear</p>
+      <p>A buckle may appear fastened without being latched, reducing protection in a crash. Dealers will replace the buckle free of charge.</p>
+      <p class="ac-api-note mb-0">Campaign 22V-000, reported 02.08.2022</p>
+    </div>
+    <p class="ac-api-note mb-0">Recall data comes from the US National Highway Traffic Safety Administration. If it can't be reached, this tab shows a message and the rest of the app keeps working.</p>
+  </div>
+</div>
+
+<div class="modal fade" id="detailServiceModal" tabindex="-1" aria-labelledby="detailServiceTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content js-demo-form" novalidate>
+      <div class="modal-header"><h2 class="modal-title h4" id="detailServiceTitle">Log service</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-body">
+        <div class="mb-3"><label for="dsType" class="form-label">Service type</label><select class="form-select" id="dsType" required><option value="" selected disabled>Choose</option><option>Oil change</option><option>Brake pads</option><option>Tyre rotation</option></select></div>
+        <div class="row g-3">
+          <div class="col-6"><label for="dsDate" class="form-label">Date</label><input type="date" class="form-control" id="dsDate" required></div>
+          <div class="col-6"><label for="dsKm" class="form-label">Mileage (km)</label><input type="number" class="form-control" id="dsKm" min="0" required></div>
+          <div class="col-6"><label for="dsCost" class="form-label">Cost (KM)</label><input type="number" class="form-control" id="dsCost" min="0" step="0.01" required></div>
+          <div class="col-6"><label for="dsShop" class="form-label">Workshop</label><input type="text" class="form-control" id="dsShop"></div>
+        </div>
+      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button><button type="submit" class="btn btn-primary">Save service</button></div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" id="detailFuelModal" tabindex="-1" aria-labelledby="detailFuelTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form class="modal-content js-demo-form" novalidate>
+      <div class="modal-header"><h2 class="modal-title h4" id="detailFuelTitle">Log fuel</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+      <div class="modal-body">
+        <div class="row g-3">
+          <div class="col-6"><label for="dfDate" class="form-label">Date</label><input type="date" class="form-control" id="dfDate" required></div>
+          <div class="col-6"><label for="dfKm" class="form-label">Mileage (km)</label><input type="number" class="form-control" id="dfKm" min="0" required></div>
+          <div class="col-6"><label for="dfL" class="form-label">Litres</label><input type="number" class="form-control" id="dfL" min="0" step="0.01" required></div>
+          <div class="col-6"><label for="dfP" class="form-label">Price per litre (KM)</label><input type="number" class="form-control" id="dfP" min="0" step="0.01" required></div>
+        </div>
+      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancel</button><button type="submit" class="btn btn-primary">Save fuel log</button></div>
+    </form>
+  </div>
+</div>
