@@ -1,0 +1,69 @@
+<div class="ac-page-head">
+  <div>
+    <h1>Dashboard</h1>
+    <p>Your garage at a glance.</p>
+  </div>
+  <a href="#/vehicles" class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i>Add vehicle</a>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-12 col-md-4">
+    <div class="ac-stat">
+      <div class="ac-stat-label">Spent this month</div>
+      <div class="ac-stat-value">214.50 <small>KM</small></div>
+      <div class="text-secondary">Fuel 142.00 KM, services 72.50 KM</div>
+    </div>
+  </div>
+  <div class="col-12 col-md-4">
+    <div class="ac-stat is-hot">
+      <div class="ac-stat-label">Next service: oil change, BMW M340i</div>
+      <div class="ac-stat-value">1,680 <small>km left</small></div>
+      <div class="ac-tach is-warn" style="--pct: 84%" role="img" aria-label="84 percent of the service interval used"></div>
+    </div>
+  </div>
+  <div class="col-12 col-md-4">
+    <div class="ac-stat">
+      <div class="ac-stat-label">Open reminders</div>
+      <div class="ac-stat-value">3</div>
+      <div class="text-secondary">1 overdue</div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-12 col-xl-5">
+    <div class="ac-card h-100">
+      <div class="ac-card-head"><h2>Upcoming reminders</h2><a href="#/reminders">View all</a></div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+          <div><strong>Brake pads</strong><br><span class="text-secondary">Škoda Octavia, was due 12.10.2026</span></div>
+          <span class="ac-status overdue">Overdue</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+          <div><strong>Oil change</strong><br><span class="text-secondary">BMW M340i, at 50,000 km</span></div>
+          <span class="ac-status pending">Pending</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+          <div><strong>Winter tyres</strong><br><span class="text-secondary">Mazda MX-5, by 15.11.2026</span></div>
+          <span class="ac-status pending">Pending</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-12 col-xl-7">
+    <div class="ac-card h-100">
+      <div class="ac-card-head"><h2>Recent activity</h2></div>
+      <div class="table-responsive">
+        <table class="table table-hover ac-table">
+          <thead><tr><th>Date</th><th>Vehicle</th><th>Activity</th><th class="text-end">Cost</th></tr></thead>
+          <tbody>
+            <tr><td>22.10.2026</td><td>BMW M340i</td><td>Refuel, 42.1 L</td><td class="text-end">79.90 KM</td></tr>
+            <tr><td>18.10.2026</td><td>Škoda Octavia</td><td>Air filter replaced</td><td class="text-end">72.50 KM</td></tr>
+            <tr><td>14.10.2026</td><td>Mazda MX-5</td><td>Refuel, 31.6 L</td><td class="text-end">62.10 KM</td></tr>
+            <tr><td>03.10.2026</td><td>BMW M340i</td><td>Software update</td><td class="text-end">0.00 KM</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

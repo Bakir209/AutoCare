@@ -1,0 +1,31 @@
+<div class="ac-page-head">
+  <div><h1>Profile</h1><p>Your account details.</p></div>
+</div>
+
+<div class="row g-4">
+  <div class="col-12 col-lg-7">
+    <div class="ac-card">
+      <div class="ac-card-head"><h2>Account</h2></div>
+      <div class="ac-card-body">
+        <form class="js-demo-form" novalidate>
+          <div class="mb-3"><label for="pName" class="form-label">Full name</label><input type="text" class="form-control" id="pName" value="Bakir" required></div>
+          <div class="mb-3"><label for="pEmail" class="form-label">Email</label><input type="email" class="form-control" id="pEmail" value="bakir@example.com" required></div>
+          <div class="mb-4"><label for="pRole" class="form-label">Role</label><input type="text" class="form-control" id="pRole" value="Admin" disabled></div>
+          <button class="btn btn-primary" type="submit">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-lg-5">
+    <div class="ac-card">
+      <div class="ac-card-head"><h2>Change password</h2></div>
+      <div class="ac-card-body">
+        <form class="js-demo-form" novalidate>
+          <div class="mb-3"><label for="pwOld" class="form-label">Current password</label><input type="password" class="form-control" id="pwOld" required></div>
+          <div class="mb-3"><label for="pwNew" class="form-label">New password</label><input type="password" class="form-control" id="pwNew" minlength="8" required><div class="form-text">At least 8 characters.</div></div>
+          <button class="btn btn-outline-dark" type="submit">Update password</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
