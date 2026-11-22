@@ -1,0 +1,6 @@
+# Apache: send every request to index.php, but never serve backend internals directly.
+RewriteEngine On
+RewriteRule ^(database|config|logs|tests|dao|services|middleware|routes|vendor)/ - [F,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
