@@ -1,0 +1,2187 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "AutoCare API",
+    "version": "1.0.0",
+    "description": "REST API for AutoCare, a vehicle maintenance manager.\n\nMilestone 3 state: all CRUD endpoints, validation and the NHTSA external API integration. Authentication and role checks (JWT) are added in Milestone 4."
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Same host as this page"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Vehicles"
+    },
+    {
+      "name": "Service types"
+    },
+    {
+      "name": "Service records"
+    },
+    {
+      "name": "Fuel logs"
+    },
+    {
+      "name": "Reminders"
+    },
+    {
+      "name": "External API (NHTSA)"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "List all users",
+        "operationId": "listUser",
+        "responses": {
+          "200": {
+            "description": "List of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create a user",
+        "operationId": "createUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get a user",
+        "operationId": "getUser",
+        "responses": {
+          "200": {
+            "description": "User",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update a user",
+        "operationId": "updateUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Delete a user",
+        "operationId": "deleteUser",
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/vehicles": {
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "summary": "List all vehicles",
+        "operationId": "listVehicle",
+        "responses": {
+          "200": {
+            "description": "List of vehicles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Vehicle"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Vehicles"
+        ],
+        "summary": "Create a vehicle",
+        "operationId": "createVehicle",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Vehicle created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/vehicles/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "summary": "Get a vehicle",
+        "operationId": "getVehicle",
+        "responses": {
+          "200": {
+            "description": "Vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vehicles"
+        ],
+        "summary": "Update a vehicle",
+        "operationId": "updateVehicle",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vehicle"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Vehicles"
+        ],
+        "summary": "Delete a vehicle",
+        "operationId": "deleteVehicle",
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/service-types": {
+      "get": {
+        "tags": [
+          "Service types"
+        ],
+        "summary": "List all service types",
+        "operationId": "listServiceType",
+        "responses": {
+          "200": {
+            "description": "List of service types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceType"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Service types"
+        ],
+        "summary": "Create a service type",
+        "operationId": "createServiceType",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceTypeInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Service type created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceType"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/service-types/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Service types"
+        ],
+        "summary": "Get a service type",
+        "operationId": "getServiceType",
+        "responses": {
+          "200": {
+            "description": "Service type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceType"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Service types"
+        ],
+        "summary": "Update a service type",
+        "operationId": "updateServiceType",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceTypeUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated service type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceType"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Service types"
+        ],
+        "summary": "Delete a service type",
+        "operationId": "deleteServiceType",
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "$ref": "#/components/responses/Conflict"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/service-records": {
+      "get": {
+        "tags": [
+          "Service records"
+        ],
+        "summary": "List all service records",
+        "operationId": "listServiceRecord",
+        "responses": {
+          "200": {
+            "description": "List of service records",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceRecord"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Service records"
+        ],
+        "summary": "Create a service record",
+        "operationId": "createServiceRecord",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceRecordInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Service record created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceRecord"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/service-records/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Service records"
+        ],
+        "summary": "Get a service record",
+        "operationId": "getServiceRecord",
+        "responses": {
+          "200": {
+            "description": "Service record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceRecord"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Service records"
+        ],
+        "summary": "Update a service record",
+        "operationId": "updateServiceRecord",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ServiceRecordUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated service record",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceRecord"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Service records"
+        ],
+        "summary": "Delete a service record",
+        "operationId": "deleteServiceRecord",
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/fuel-logs": {
+      "get": {
+        "tags": [
+          "Fuel logs"
+        ],
+        "summary": "List all fuel logs",
+        "operationId": "listFuelLog",
+        "responses": {
+          "200": {
+            "description": "List of fuel logs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FuelLog"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Fuel logs"
+        ],
+        "summary": "Create a fuel log",
+        "operationId": "createFuelLog",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuelLogInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Fuel log created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FuelLog"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/fuel-logs/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Fuel logs"
+        ],
+        "summary": "Get a fuel log",
+        "operationId": "getFuelLog",
+        "responses": {
+          "200": {
+            "description": "Fuel log",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FuelLog"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Fuel logs"
+        ],
+        "summary": "Update a fuel log",
+        "operationId": "updateFuelLog",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuelLogUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated fuel log",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FuelLog"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Fuel logs"
+        ],
+        "summary": "Delete a fuel log",
+        "operationId": "deleteFuelLog",
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/reminders": {
+      "get": {
+        "tags": [
+          "Reminders"
+        ],
+        "summary": "List all reminders",
+        "operationId": "listReminder",
+        "responses": {
+          "200": {
+            "description": "List of reminders",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Reminder"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Reminders"
+        ],
+        "summary": "Create a reminder",
+        "operationId": "createReminder",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReminderInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Reminder created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reminder"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/reminders/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Reminders"
+        ],
+        "summary": "Get a reminder",
+        "operationId": "getReminder",
+        "responses": {
+          "200": {
+            "description": "Reminder",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reminder"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Reminders"
+        ],
+        "summary": "Update a reminder",
+        "operationId": "updateReminder",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReminderUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated reminder",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Reminder"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Reminders"
+        ],
+        "summary": "Delete a reminder",
+        "operationId": "deleteReminder",
+        "responses": {
+          "200": {
+            "description": "Deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Message"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/users/{id}/vehicles": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "List the vehicles of a user",
+        "operationId": "listUserVehicles",
+        "responses": {
+          "200": {
+            "description": "List the vehicles of a user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Vehicle"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/vehicles/{id}/service-records": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "summary": "List the service records of a vehicle",
+        "operationId": "listVehicleServiceRecords",
+        "responses": {
+          "200": {
+            "description": "List the service records of a vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ServiceRecord"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/vehicles/{id}/fuel-logs": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "summary": "List the fuel logs of a vehicle",
+        "operationId": "listVehicleFuelLogs",
+        "responses": {
+          "200": {
+            "description": "List the fuel logs of a vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FuelLog"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/vehicles/{id}/reminders": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Vehicles"
+        ],
+        "summary": "List the reminders of a vehicle",
+        "operationId": "listVehicleReminders",
+        "responses": {
+          "200": {
+            "description": "List the reminders of a vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Reminder"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/vin/{vin}": {
+      "get": {
+        "tags": [
+          "External API (NHTSA)"
+        ],
+        "summary": "Decode a VIN",
+        "description": "Calls the NHTSA vPIC API and returns make, model and year so the vehicle form can be pre-filled.",
+        "operationId": "decodeVin",
+        "parameters": [
+          {
+            "name": "vin",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 17,
+              "maxLength": 17,
+              "example": "JM1NDAD75J0212345"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Decoded vehicle data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VinDecode"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    },
+    "/vehicles/{id}/recalls": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "External API (NHTSA)"
+        ],
+        "summary": "List safety recalls for a vehicle",
+        "description": "Calls the NHTSA Recalls API for the vehicle's make, model and year. If NHTSA is down or slow the API answers 503 with a friendly message and the rest of the application keeps working.",
+        "operationId": "listVehicleRecalls",
+        "responses": {
+          "200": {
+            "description": "Recalls for the vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecallList"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "503": {
+            "$ref": "#/components/responses/Unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Route not found."
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "ValidationError": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Validation failed."
+          },
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "example": {
+              "email": "Enter a valid email address."
+            }
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "Message": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Vehicle deleted."
+          }
+        }
+      },
+      "VinDecode": {
+        "type": "object",
+        "properties": {
+          "vin": {
+            "type": "string",
+            "example": "JM1NDAD75J0212345"
+          },
+          "make": {
+            "type": "string",
+            "example": "MAZDA"
+          },
+          "model": {
+            "type": "string",
+            "example": "MX-5 Miata"
+          },
+          "year": {
+            "type": "integer",
+            "example": 2018
+          },
+          "fuel_type": {
+            "type": "string",
+            "example": "petrol",
+            "enum": [
+              "petrol",
+              "diesel",
+              "hybrid",
+              "electric",
+              "lpg"
+            ],
+            "nullable": true
+          },
+          "body_class": {
+            "type": "string",
+            "example": "Convertible/Cabriolet",
+            "nullable": true
+          }
+        }
+      },
+      "Recall": {
+        "type": "object",
+        "properties": {
+          "campaign": {
+            "type": "string",
+            "example": "21V000"
+          },
+          "component": {
+            "type": "string",
+            "example": "FUEL SYSTEM"
+          },
+          "summary": {
+            "type": "string",
+            "example": "The fuel pump may fail."
+          },
+          "consequence": {
+            "type": "string",
+            "example": "The engine may stall."
+          },
+          "remedy": {
+            "type": "string",
+            "example": "Dealers will replace the pump free of charge."
+          },
+          "manufacturer": {
+            "type": "string",
+            "example": "BMW of North America, LLC"
+          },
+          "reported_date": {
+            "type": "string",
+            "example": "2021-05-14",
+            "format": "date",
+            "nullable": true
+          }
+        }
+      },
+      "RecallList": {
+        "type": "object",
+        "properties": {
+          "vehicle": {
+            "type": "string",
+            "example": "2021 BMW M340i"
+          },
+          "count": {
+            "type": "integer",
+            "example": 1
+          },
+          "recalls": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Recall"
+            }
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Amra Hodžić"
+          },
+          "email": {
+            "type": "string",
+            "example": "user@autocare.test",
+            "format": "email"
+          },
+          "role": {
+            "type": "string",
+            "example": "user",
+            "enum": [
+              "admin",
+              "user"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2026-09-12 10:30:00"
+          }
+        }
+      },
+      "UserInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Amra Hodžić",
+            "minLength": 2,
+            "maxLength": 100
+          },
+          "email": {
+            "type": "string",
+            "example": "user@autocare.test",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "example": "User1234!",
+            "minLength": 8,
+            "maxLength": 72,
+            "writeOnly": true
+          },
+          "role": {
+            "type": "string",
+            "example": "user",
+            "enum": [
+              "admin",
+              "user"
+            ],
+            "default": "user"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password"
+        ]
+      },
+      "UserUpdate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Amra Hodžić",
+            "minLength": 2,
+            "maxLength": 100
+          },
+          "email": {
+            "type": "string",
+            "example": "user@autocare.test",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "example": "User1234!",
+            "minLength": 8,
+            "maxLength": 72,
+            "writeOnly": true
+          },
+          "role": {
+            "type": "string",
+            "example": "user",
+            "enum": [
+              "admin",
+              "user"
+            ],
+            "default": "user"
+          }
+        },
+        "description": "Send only the fields you want to change. Fields you leave out keep their value."
+      },
+      "Vehicle": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "user_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "make": {
+            "type": "string",
+            "example": "BMW"
+          },
+          "model": {
+            "type": "string",
+            "example": "M340i"
+          },
+          "year": {
+            "type": "integer",
+            "example": 2021
+          },
+          "vin": {
+            "type": "string",
+            "example": "WBA5R1C50KFH12345"
+          },
+          "plate": {
+            "type": "string",
+            "example": "A12-K-345"
+          },
+          "current_mileage": {
+            "type": "integer",
+            "example": 48320
+          },
+          "fuel_type": {
+            "type": "string",
+            "example": "petrol",
+            "enum": [
+              "petrol",
+              "diesel",
+              "hybrid",
+              "electric",
+              "lpg"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2026-09-01 09:00:00"
+          }
+        }
+      },
+      "VehicleInput": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "example": 2,
+            "minimum": 1
+          },
+          "make": {
+            "type": "string",
+            "example": "BMW",
+            "maxLength": 50
+          },
+          "model": {
+            "type": "string",
+            "example": "M340i",
+            "maxLength": 50
+          },
+          "year": {
+            "type": "integer",
+            "example": 2021,
+            "minimum": 1950
+          },
+          "vin": {
+            "type": "string",
+            "example": "WBA5R1C50KFH12345",
+            "description": "17 characters, letters and digits except I, O, Q",
+            "minLength": 17,
+            "maxLength": 17
+          },
+          "plate": {
+            "type": "string",
+            "example": "A12-K-345",
+            "maxLength": 20
+          },
+          "current_mileage": {
+            "type": "integer",
+            "example": 48320,
+            "minimum": 0,
+            "default": 0,
+            "description": "Cannot be lowered on update"
+          },
+          "fuel_type": {
+            "type": "string",
+            "example": "petrol",
+            "enum": [
+              "petrol",
+              "diesel",
+              "hybrid",
+              "electric",
+              "lpg"
+            ]
+          }
+        },
+        "required": [
+          "user_id",
+          "make",
+          "model",
+          "year",
+          "vin",
+          "plate",
+          "fuel_type"
+        ]
+      },
+      "VehicleUpdate": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "example": 2,
+            "minimum": 1
+          },
+          "make": {
+            "type": "string",
+            "example": "BMW",
+            "maxLength": 50
+          },
+          "model": {
+            "type": "string",
+            "example": "M340i",
+            "maxLength": 50
+          },
+          "year": {
+            "type": "integer",
+            "example": 2021,
+            "minimum": 1950
+          },
+          "vin": {
+            "type": "string",
+            "example": "WBA5R1C50KFH12345",
+            "description": "17 characters, letters and digits except I, O, Q",
+            "minLength": 17,
+            "maxLength": 17
+          },
+          "plate": {
+            "type": "string",
+            "example": "A12-K-345",
+            "maxLength": 20
+          },
+          "current_mileage": {
+            "type": "integer",
+            "example": 48320,
+            "minimum": 0,
+            "default": 0,
+            "description": "Cannot be lowered on update"
+          },
+          "fuel_type": {
+            "type": "string",
+            "example": "petrol",
+            "enum": [
+              "petrol",
+              "diesel",
+              "hybrid",
+              "electric",
+              "lpg"
+            ]
+          }
+        },
+        "description": "Send only the fields you want to change. Fields you leave out keep their value."
+      },
+      "ServiceType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Oil change"
+          },
+          "description": {
+            "type": "string",
+            "example": "Engine oil and filter",
+            "nullable": true
+          },
+          "default_interval_km": {
+            "type": "integer",
+            "example": 15000,
+            "nullable": true
+          },
+          "default_interval_months": {
+            "type": "integer",
+            "example": 12,
+            "nullable": true
+          }
+        }
+      },
+      "ServiceTypeInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Oil change",
+            "minLength": 2,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string",
+            "example": "Engine oil and filter",
+            "maxLength": 1000,
+            "nullable": true
+          },
+          "default_interval_km": {
+            "type": "integer",
+            "example": 15000,
+            "minimum": 1,
+            "nullable": true
+          },
+          "default_interval_months": {
+            "type": "integer",
+            "example": 12,
+            "minimum": 1,
+            "nullable": true
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "ServiceTypeUpdate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Oil change",
+            "minLength": 2,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string",
+            "example": "Engine oil and filter",
+            "maxLength": 1000,
+            "nullable": true
+          },
+          "default_interval_km": {
+            "type": "integer",
+            "example": 15000,
+            "minimum": 1,
+            "nullable": true
+          },
+          "default_interval_months": {
+            "type": "integer",
+            "example": 12,
+            "minimum": 1,
+            "nullable": true
+          }
+        },
+        "description": "Send only the fields you want to change. Fields you leave out keep their value."
+      },
+      "ServiceRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "vehicle_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "service_type_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "service_date": {
+            "type": "string",
+            "example": "2026-04-03",
+            "format": "date"
+          },
+          "mileage": {
+            "type": "integer",
+            "example": 40100
+          },
+          "cost": {
+            "type": "number",
+            "example": 145.0
+          },
+          "workshop": {
+            "type": "string",
+            "example": "Auto Servis Mostar",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "example": "Synthetic 5W-30",
+            "nullable": true
+          },
+          "is_repair": {
+            "type": "boolean",
+            "example": false
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2026-04-03 12:00:00"
+          },
+          "service_type_name": {
+            "type": "string",
+            "example": "Oil change"
+          },
+          "vehicle_label": {
+            "type": "string",
+            "example": "BMW M340i"
+          }
+        }
+      },
+      "ServiceRecordInput": {
+        "type": "object",
+        "properties": {
+          "vehicle_id": {
+            "type": "integer",
+            "example": 1,
+            "minimum": 1
+          },
+          "service_type_id": {
+            "type": "integer",
+            "example": 1,
+            "minimum": 1
+          },
+          "service_date": {
+            "type": "string",
+            "example": "2026-04-03",
+            "format": "date",
+            "description": "Cannot be in the future"
+          },
+          "mileage": {
+            "type": "integer",
+            "example": 40100,
+            "minimum": 0
+          },
+          "cost": {
+            "type": "number",
+            "example": 145.0,
+            "minimum": 0,
+            "default": 0
+          },
+          "workshop": {
+            "type": "string",
+            "example": "Auto Servis Mostar",
+            "maxLength": 100,
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "example": "Synthetic 5W-30",
+            "maxLength": 2000,
+            "nullable": true
+          },
+          "is_repair": {
+            "type": "boolean",
+            "example": false,
+            "default": false
+          }
+        },
+        "required": [
+          "vehicle_id",
+          "service_type_id",
+          "service_date",
+          "mileage"
+        ],
+        "description": "Creating or editing a record raises the vehicle's current mileage if the record's mileage is higher."
+      },
+      "ServiceRecordUpdate": {
+        "type": "object",
+        "properties": {
+          "vehicle_id": {
+            "type": "integer",
+            "example": 1,
+            "minimum": 1
+          },
+          "service_type_id": {
+            "type": "integer",
+            "example": 1,
+            "minimum": 1
+          },
+          "service_date": {
+            "type": "string",
+            "example": "2026-04-03",
+            "format": "date",
+            "description": "Cannot be in the future"
+          },
+          "mileage": {
+            "type": "integer",
+            "example": 40100,
+            "minimum": 0
+          },
+          "cost": {
+            "type": "number",
+            "example": 145.0,
+            "minimum": 0,
+            "default": 0
+          },
+          "workshop": {
+            "type": "string",
+            "example": "Auto Servis Mostar",
+            "maxLength": 100,
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "example": "Synthetic 5W-30",
+            "maxLength": 2000,
+            "nullable": true
+          },
+          "is_repair": {
+            "type": "boolean",
+            "example": false,
+            "default": false
+          }
+        },
+        "description": "Send only the fields you want to change. Fields you leave out keep their value."
+      },
+      "FuelLog": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "vehicle_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "log_date": {
+            "type": "string",
+            "example": "2026-10-22",
+            "format": "date"
+          },
+          "liters": {
+            "type": "number",
+            "example": 42.1
+          },
+          "price_per_liter": {
+            "type": "number",
+            "example": 1.898
+          },
+          "total_cost": {
+            "type": "number",
+            "example": 79.9
+          },
+          "mileage": {
+            "type": "integer",
+            "example": 48320
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2026-10-22 18:00:00"
+          },
+          "vehicle_label": {
+            "type": "string",
+            "example": "BMW M340i"
+          }
+        }
+      },
+      "FuelLogInput": {
+        "type": "object",
+        "properties": {
+          "vehicle_id": {
+            "type": "integer",
+            "example": 1,
+            "minimum": 1
+          },
+          "log_date": {
+            "type": "string",
+            "example": "2026-10-22",
+            "format": "date",
+            "description": "Cannot be in the future"
+          },
+          "liters": {
+            "type": "number",
+            "example": 42.1,
+            "minimum": 0.01
+          },
+          "price_per_liter": {
+            "type": "number",
+            "example": 1.898,
+            "minimum": 0.001
+          },
+          "mileage": {
+            "type": "integer",
+            "example": 48320,
+            "minimum": 0
+          }
+        },
+        "required": [
+          "vehicle_id",
+          "log_date",
+          "liters",
+          "price_per_liter",
+          "mileage"
+        ],
+        "description": "total_cost is calculated by the server (liters x price_per_liter, 2 decimals). Creating or editing a log raises the vehicle's current mileage if higher."
+      },
+      "FuelLogUpdate": {
+        "type": "object",
+        "properties": {
+          "vehicle_id": {
+            "type": "integer",
+            "example": 1,
+            "minimum": 1
+          },
+          "log_date": {
+            "type": "string",
+            "example": "2026-10-22",
+            "format": "date",
+            "description": "Cannot be in the future"
+          },
+          "liters": {
+            "type": "number",
+            "example": 42.1,
+            "minimum": 0.01
+          },
+          "price_per_liter": {
+            "type": "number",
+            "example": 1.898,
+            "minimum": 0.001
+          },
+          "mileage": {
+            "type": "integer",
+            "example": 48320,
+            "minimum": 0
+          }
+        },
+        "description": "Send only the fields you want to change. Fields you leave out keep their value."
+      },
+      "Reminder": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 2
+          },
+          "vehicle_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "service_type_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "due_date": {
+            "type": "string",
+            "example": "2026-11-30",
+            "format": "date",
+            "nullable": true
+          },
+          "due_mileage": {
+            "type": "integer",
+            "example": 50000,
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "example": "pending",
+            "enum": [
+              "pending",
+              "done",
+              "overdue"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "example": "2026-09-01 09:00:00"
+          },
+          "service_type_name": {
+            "type": "string",
+            "example": "Oil change"
+          },
+          "vehicle_label": {
+            "type": "string",
+            "example": "BMW M340i"
+          }
+        }
+      },
+      "ReminderInput": {
+        "type": "object",
+        "properties": {
+          "vehicle_id": {
+            "type": "integer",
+            "example": 1,
+            "minimum": 1
+          },
+          "service_type_id": {
+            "type": "integer",
+            "example": 1,
+            "minimum": 1
+          },
+          "due_date": {
+            "type": "string",
+            "example": "2026-11-30",
+            "format": "date",
+            "nullable": true
+          },
+          "due_mileage": {
+            "type": "integer",
+            "example": 50000,
+            "minimum": 0,
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "example": "pending",
+            "enum": [
+              "pending",
+              "done",
+              "overdue"
+            ],
+            "default": "pending"
+          }
+        },
+        "required": [
+          "vehicle_id",
+          "service_type_id"
+        ],
+        "description": "A reminder needs a due_date, a due_mileage, or both. Pending reminders whose date has passed or whose mileage has been reached are returned as overdue."
+      },
+      "ReminderUpdate": {
+        "type": "object",
+        "properties": {
+          "vehicle_id": {
+            "type": "integer",
+            "example": 1,
+            "minimum": 1
+          },
+          "service_type_id": {
+            "type": "integer",
+            "example": 1,
+            "minimum": 1
+          },
+          "due_date": {
+            "type": "string",
+            "example": "2026-11-30",
+            "format": "date",
+            "nullable": true
+          },
+          "due_mileage": {
+            "type": "integer",
+            "example": 50000,
+            "minimum": 0,
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "example": "pending",
+            "enum": [
+              "pending",
+              "done",
+              "overdue"
+            ],
+            "default": "pending"
+          }
+        },
+        "description": "Send only the fields you want to change. Fields you leave out keep their value."
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Invalid or missing data",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Conflict": {
+        "description": "Conflicts with existing data (duplicate value or still in use)",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "ServerError": {
+        "description": "Unexpected server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Unavailable": {
+        "description": "External service unavailable or too slow",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "Id": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "description": "Record id"
+      }
+    }
+  }
+}
